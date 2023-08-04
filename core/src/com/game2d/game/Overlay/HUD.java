@@ -31,9 +31,13 @@ public class HUD {
         table.top();
         table.setFillParent(true);
 
-        scoreLabel = new Label((String.format("%03d",score)), new Label.LabelStyle(new BitmapFont(), Color.GOLD));
-        levelLabel = new Label ("LVL 1", new Label.LabelStyle(new BitmapFont(), Color.GOLD));
-        nameofgame = new Label ("The Protagonist", new Label.LabelStyle(new BitmapFont(), Color.GOLD));
+        BitmapFont font= new BitmapFont() ;
+
+        font.getData().setScale(3, 3);
+
+        scoreLabel = new Label((String.format("%03d",score)), new Label.LabelStyle(font, Color.GOLD));
+        levelLabel = new Label ("LVL 1", new Label.LabelStyle(font , Color.GOLD));
+        nameofgame = new Label ("The Protagonist", new Label.LabelStyle(font, Color.GOLD));
 
         table.add(nameofgame).expandX().padTop(10);
         table.row();
