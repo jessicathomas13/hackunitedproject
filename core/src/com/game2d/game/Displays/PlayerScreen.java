@@ -43,7 +43,7 @@ public class PlayerScreen implements Screen {
         gamePort = new FitViewport(Game2D.WIDTH, Game2D.HEIGHT, camera);
         hud = new HUD(game.batch);
         tmxMapLoader = new TmxMapLoader();
-        map = tmxMapLoader.load("C:\\Users\\Jessica\\Documents\\GitHub\\Game2Dproject\\assets\\map.tmx");
+        map = tmxMapLoader.load("C:\\Users\\Acer\\StudioProjects\\hackunitedproject\\assets\\map.tmx");
         orthogonalTiledMapRenderer = new OrthogonalTiledMapRenderer(map);
         camera.position.set(gamePort.getWorldWidth()/2, gamePort.getWorldHeight()/2, 0);
 
@@ -79,6 +79,7 @@ public class PlayerScreen implements Screen {
     }
     public void update(float deltatime){
         controlInput(deltatime);
+        world.step(1/60f, 6, 2);
         camera.update();
         orthogonalTiledMapRenderer.setView(camera);
 
