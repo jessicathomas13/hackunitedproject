@@ -11,6 +11,7 @@ public class Game2D extends Game {
 
 	public static final int WIDTH =2000;
 	public static final int HEIGHT =1100;
+	public static final float PPM= 99;
 	public SpriteBatch batch;
 
 	

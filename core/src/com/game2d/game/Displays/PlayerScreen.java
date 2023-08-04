@@ -20,6 +20,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.game2d.game.Entities.Hero;
 import com.game2d.game.Game2D;
 import com.game2d.game.Overlay.HUD;
 
@@ -34,21 +35,23 @@ public class PlayerScreen implements Screen {
     private TiledMap map;
     private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
     private World world;
+    private Hero player;
     private Box2DDebugRenderer br;
 
 
     public PlayerScreen(Game2D game){
         this.game = game;
         camera = new OrthographicCamera();
-        gamePort = new FitViewport(Game2D.WIDTH, Game2D.HEIGHT, camera);
+        gamePort = new FitViewport(Game2D.WIDTH/Game2D.PPM, Game2D.HEIGHT/Game2D.PPM, camera);
         hud = new HUD(game.batch);
         tmxMapLoader = new TmxMapLoader();
         map = tmxMapLoader.load("map.tmx");
-        orthogonalTiledMapRenderer = new OrthogonalTiledMapRenderer(map);
+        orthogonalTiledMapRenderer = new OrthogonalTiledMapRenderer(map,1/Game2D.PPM );
         camera.position.set(gamePort.getWorldWidth()/2, gamePort.getWorldHeight()/2, 0);
 
-        world = new World(new Vector2(0,0), true);
+        world = new World(new Vector2(0,-9.8f), true);
         br = new Box2DDebugRenderer();
+        //player= new Hero(world);
 
         BodyDef bodyDef = new BodyDef();
         PolygonShape shape = new PolygonShape();
@@ -58,9 +61,9 @@ public class PlayerScreen implements Screen {
         for(MapObject mapObject : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rectangle = ((RectangleMapObject) mapObject).getRectangle();
             bodyDef.type = BodyDef.BodyType.StaticBody;
-            bodyDef.position.set(rectangle.getX() + rectangle.getWidth()/2, rectangle.getY() + rectangle.getHeight()/2);
+            bodyDef.position.set((rectangle.getX() + rectangle.getWidth()/2)/Game2D.PPM, (rectangle.getY() + rectangle.getHeight()/2)/Game2D.PPM);
             body = world.createBody(bodyDef);
-            shape.setAsBox(rectangle.getWidth()/2, rectangle.getHeight()/2);
+            shape.setAsBox((rectangle.getWidth()/2)/Game2D.PPM, (rectangle.getHeight()/2)/Game2D.PPM);
             fixtureDef.shape = shape;
             body.createFixture(fixtureDef);
         }
