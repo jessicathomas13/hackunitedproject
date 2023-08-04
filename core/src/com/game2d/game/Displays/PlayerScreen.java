@@ -23,6 +23,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.game2d.game.Entities.Hero;
 import com.game2d.game.Game2D;
+import com.game2d.game.Miscellaneous.WorldCreator;
 import com.game2d.game.Overlay.HUD;
 
 public class PlayerScreen implements Screen {
@@ -52,23 +53,8 @@ public class PlayerScreen implements Screen {
 
         world = new World(new Vector2(0,-15f), true);
         br = new Box2DDebugRenderer();
+        new WorldCreator(world,map);
         player= new Hero(world);
-
-        BodyDef bodyDef = new BodyDef();
-        PolygonShape shape = new PolygonShape();
-        FixtureDef fixtureDef = new FixtureDef();
-        Body body;
-
-        for(MapObject mapObject : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
-            Rectangle rectangle = ((RectangleMapObject) mapObject).getRectangle();
-            bodyDef.type = BodyDef.BodyType.StaticBody;
-            bodyDef.position.set((rectangle.getX() + rectangle.getWidth()/2)/Game2D.PPM, (rectangle.getY() + rectangle.getHeight()/2)/Game2D.PPM);
-            body = world.createBody(bodyDef);
-            shape.setAsBox((rectangle.getWidth()/2)/Game2D.PPM, (rectangle.getHeight()/2)/Game2D.PPM);
-            fixtureDef.shape = shape;
-            body.createFixture(fixtureDef);
-        }
-
     }
     @Override
     public void show() {
@@ -131,6 +117,11 @@ public class PlayerScreen implements Screen {
 
     @Override
     public void dispose() {
+        world.dispose();
+        orthogonalTiledMapRenderer.dispose();
+        map.dispose();
+        br.dispose();
+        hud.dispose();
 
     }
 }
