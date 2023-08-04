@@ -1,6 +1,7 @@
 package com.game2d.game.Displays;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -49,9 +50,9 @@ public class PlayerScreen implements Screen {
         orthogonalTiledMapRenderer = new OrthogonalTiledMapRenderer(map,1/Game2D.PPM );
         camera.position.set(gamePort.getWorldWidth()/2, gamePort.getWorldHeight()/2, 0);
 
-        world = new World(new Vector2(0,-9.8f), true);
+        world = new World(new Vector2(0,-20f), true);
         br = new Box2DDebugRenderer();
-        //player= new Hero(world);
+        player= new Hero(world);
 
         BodyDef bodyDef = new BodyDef();
         PolygonShape shape = new PolygonShape();
@@ -75,14 +76,22 @@ public class PlayerScreen implements Screen {
     }
 
     public void controlInput(float deltatime){
-        if(Gdx.input.isTouched()){
-            camera.position.x +=100*deltatime;
+        if(Gdx.input.isKeyJustPressed(Input.Keys.UP)){
+            player.body.applyLinearImpulse(new Vector2(0,10f), player.body.getWorldCenter(), true);
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.body.getLinearVelocity().x<=3){
+            player.body.applyLinearImpulse(new Vector2(0.1f,0), player.body.getWorldCenter(),true);
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.body.getLinearVelocity().x>=-3){
+            player.body.applyLinearImpulse(new Vector2(-0.1f,0), player.body.getWorldCenter(),true);
         }
 
     }
     public void update(float deltatime){
         controlInput(deltatime);
         world.step(1/60f, 6, 2);
+
+        camera.position.x = player.body.getPosition().x;
         camera.update();
         orthogonalTiledMapRenderer.setView(camera);
 
