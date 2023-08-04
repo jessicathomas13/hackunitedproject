@@ -9,8 +9,8 @@ import com.game2d.game.Displays.PlayerScreen;
 
 public class Game2D extends Game {
 
-	public static final int WIDTH =500;
-	public static final int HEIGHT =300;
+	public static final int WIDTH =1000;
+	public static final int HEIGHT =1000;
 	public SpriteBatch batch;
 
 	
