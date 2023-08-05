@@ -34,19 +34,19 @@ public class Hero extends Sprite {
         runRight = true;
 
         Array<TextureRegion> frames = new Array<TextureRegion>();
-        for(int i = 1; i<10; i++){
-            frames.add(new TextureRegion(getTexture(),i*135, 0 , 135, 135));
+        for(int i = 1; i<5; i++){
+            frames.add(new TextureRegion(getTexture(),i*105, 0 , 105, 100));
         }
-        characterRun = new Animation(2f, frames);
+        characterRun = new Animation(0.1f, frames);
         frames.clear();
-        for(int i = 7; i<13; i++){
-            frames.add(new TextureRegion(getTexture(),i*135,0,135,135));
+        for(int i = 1; i<5; i++){
+            frames.add(new TextureRegion(getTexture(),i*105,0,105,100));
         }
-        characterJump = new Animation(2f,frames);
+        characterJump = new Animation(0.1f,frames);
 
         defineHero();
-        heroidle= new TextureRegion(getTexture(), 1, 1, 135, 135);
-        setBounds(1, 1, 135/Game2D.PPM, 135/Game2D.PPM);
+        heroidle= new TextureRegion(getTexture(), 10, 1, 80, 100);
+        setBounds(1, 1, 100/Game2D.PPM, 100/Game2D.PPM);
         setRegion(heroidle);
 
 
@@ -103,7 +103,7 @@ public class Hero extends Sprite {
         body = world.createBody(bodyDef);
         FixtureDef fixtureDef = new FixtureDef();
         CircleShape shape = new CircleShape();
-        shape.setRadius(55/Game2D.PPM);
+        shape.setRadius(50/Game2D.PPM);
         fixtureDef.shape=shape;
         body.createFixture(fixtureDef);
 
