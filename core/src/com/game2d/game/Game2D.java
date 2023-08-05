@@ -14,6 +14,13 @@ public class Game2D extends Game {
 	public static final int WIDTH =2500;
 	public static final int HEIGHT =1400;
 	public static final float PPM= 99;
+
+	public static final short FLOORBIT= 1;
+	public static final short HEROBIT= 2;
+
+	public static final short TREEBIT= 16;
+	public static final short MONSTERBIT= 32;
+
 	public SpriteBatch batch;
 
 	public static AssetManager assetManager;

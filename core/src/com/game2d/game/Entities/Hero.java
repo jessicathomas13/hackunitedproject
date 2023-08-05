@@ -1,5 +1,6 @@
 package com.game2d.game.Entities;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -28,10 +29,10 @@ public class Hero extends Sprite {
     private boolean runRight;
 
     private Music music;
-    public Hero (World world, PlayerScreen screen){
+    public Hero (PlayerScreen screen){
 
         super(screen.getAtlas().findRegion("mainhero"));
-        this.world= world;
+        this.world= screen.getWorld();
         currentState = State.STAND;
         previousState = State.STAND;
         stateTimer = 0;
@@ -115,6 +116,11 @@ public class Hero extends Sprite {
         CircleShape shape = new CircleShape();
         shape.setRadius(45/Game2D.PPM);
         fixtureDef.shape=shape;
+        fixtureDef.filter.maskBits= Game2D.FLOORBIT|
+                Game2D.MONSTERBIT|
+                Game2D.TREEBIT;
+
+        fixtureDef.filter.categoryBits= Game2D.HEROBIT;
         body.createFixture(fixtureDef);
 
     }

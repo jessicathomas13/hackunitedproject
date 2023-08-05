@@ -27,6 +27,7 @@ import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.game2d.game.Entities.Dragon;
 import com.game2d.game.Entities.Hero;
 import com.game2d.game.Game2D;
 import com.game2d.game.Miscellaneous.WorldCreator;
@@ -43,6 +44,7 @@ public class PlayerScreen implements Screen {
     private TiledMap map;
     private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
     private World world;
+    private Dragon dragon;
     private Hero player;
     private Box2DDebugRenderer br;
     private Music music;
@@ -63,8 +65,10 @@ public class PlayerScreen implements Screen {
 
         world = new World(new Vector2(0,-20f), true);
         br = new Box2DDebugRenderer();
-        new WorldCreator(world,map);
-        player= new Hero(world, this);
+        new WorldCreator(this);
+        player= new Hero(this);
+
+        new WorldCreator(this);
 
         //world.setContactListener(new WorldContactListener);
 
@@ -72,6 +76,7 @@ public class PlayerScreen implements Screen {
         music.setVolume(0.1f);
         music.setLooping(true);
         music.play();
+        dragon = new Dragon(this, 408/Game2D.PPM, 408/Game2D.PPM);
 
     }
 
@@ -99,6 +104,7 @@ public class PlayerScreen implements Screen {
         controlInput(deltatime);
         world.step(1/60f, 6, 2);
         player.update(deltatime);
+        dragon.update(deltatime);
 
         camera.position.x = player.body.getPosition().x;
         camera.update();
@@ -115,10 +121,18 @@ public class PlayerScreen implements Screen {
         br.render(world, camera.combined);
         game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
+        dragon.draw(game.batch);
         player.draw(game.batch);
         game.batch.end();
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
+    }
+    public TiledMap getMap(){
+        return map;
+    }
+
+    public World getWorld() {
+        return world;
     }
 
     @Override
