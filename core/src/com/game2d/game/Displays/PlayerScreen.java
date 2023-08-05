@@ -107,6 +107,7 @@ public class PlayerScreen implements Screen {
         dragon.update(deltatime);
 
         camera.position.x = player.body.getPosition().x;
+        camera.position.y = player.body.getPosition().y;
         camera.update();
         orthogonalTiledMapRenderer.setView(camera);
 
