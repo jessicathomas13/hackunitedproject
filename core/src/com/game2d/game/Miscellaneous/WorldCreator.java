@@ -22,7 +22,7 @@ public class WorldCreator {
         FixtureDef fixtureDef = new FixtureDef();
         Body body;
 
-        for(MapObject mapObject : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
+        for(MapObject mapObject : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rectangle = ((RectangleMapObject) mapObject).getRectangle();
             bodyDef.type = BodyDef.BodyType.StaticBody;
             bodyDef.position.set((rectangle.getX() + rectangle.getWidth()/2)/ Game2D.PPM, (rectangle.getY() + rectangle.getHeight()/2)/Game2D.PPM);

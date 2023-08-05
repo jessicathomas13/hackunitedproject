@@ -30,6 +30,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.game2d.game.Entities.Dragon;
 import com.game2d.game.Entities.Hero;
 import com.game2d.game.Game2D;
+import com.game2d.game.Miscellaneous.WorldContactListener;
 import com.game2d.game.Miscellaneous.WorldCreator;
 import com.game2d.game.Overlay.HUD;
 
@@ -70,13 +71,13 @@ public class PlayerScreen implements Screen {
 
         new WorldCreator(this);
 
-        //world.setContactListener(new WorldContactListener);
+        world.setContactListener(new WorldContactListener());
 
         music = Game2D.assetManager.get("Sounds/Soundtrack.ogg", Music.class);
         music.setVolume(0.1f);
         music.setLooping(true);
         music.play();
-        dragon = new Dragon(this, 408/Game2D.PPM, 408/Game2D.PPM);
+        dragon = new Dragon(this, 5008/Game2D.PPM, 808/Game2D.PPM);
 
     }
 

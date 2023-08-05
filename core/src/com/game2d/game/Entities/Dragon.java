@@ -2,6 +2,7 @@ package com.game2d.game.Entities;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -9,8 +10,10 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Base64Coder;
 import com.game2d.game.Displays.PlayerScreen;
 import com.game2d.game.Game2D;
+import com.game2d.game.Overlay.HUD;
 
 public class Dragon extends Monster {
     private Animation<TextureRegion> walking;;
@@ -42,13 +45,20 @@ public class Dragon extends Monster {
         if (destroy && !destroyed){
             world.destroyBody(body);
             destroyed=true;
-            System.out.println("dead");
-            setRegion(new TextureRegion(screen.getAtlas().findRegion("deadmonster"), 1, 0, 184, 184));
+            HUD.addScore(50);
+            setRegion(new TextureRegion(screen.getAtlas().findRegion("deadmonster"), 220, 0, 184, 184));
             time=0;
         }
         else if(!destroyed){
+            body.setLinearVelocity(velocity);
+
             setPosition(body.getPosition().x-getWidth()/2, body.getPosition().y-getHeight()/2);
             setRegion(walking.getKeyFrame(time, true));
+        }
+    }
+    public void draw(Batch batch){
+        if (!destroyed||time<1){
+            super.draw(batch);
         }
     }
 
@@ -68,7 +78,7 @@ public class Dragon extends Monster {
                 Game2D.HEROBIT|
                 Game2D.MONSTERBIT;
         fixtureDef.shape=shape;
-        body.createFixture(fixtureDef);
+        body.createFixture(fixtureDef).setUserData(this);
 
         PolygonShape head = new PolygonShape();
         Vector2[] vertices = new Vector2[4];

@@ -32,9 +32,19 @@ public class WorldContactListener implements ContactListener {
                 if (fixA.getFilterData().categoryBits == Game2D.MONSTERHEADBIT){
                     ((Monster)fixA.getUserData()).hitHead();
                 }
-                else if (fixB.getFilterData().categoryBits== Game2D.MONSTERHEADBIT){
+                else {
                     ((Monster)fixB.getUserData()).hitHead();
                 }
+                break;
+            case Game2D.MONSTERBIT  | Game2D.TREEBIT:
+                if (fixA.getFilterData().categoryBits == Game2D.MONSTERBIT){
+                    ((Monster)fixA.getUserData()).revVelocity(true, false);
+                }
+                else {
+                    ((Monster)fixB.getUserData()).revVelocity(true, false);
+                }
+                break;
+
         }
 
 
