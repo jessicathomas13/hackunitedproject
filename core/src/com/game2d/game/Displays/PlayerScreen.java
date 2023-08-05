@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -29,7 +30,7 @@ import com.game2d.game.Overlay.HUD;
 public class PlayerScreen implements Screen {
 
     private Game2D game;
-    Texture texture;
+    private TextureAtlas atlas;
     private OrthographicCamera camera;
     private Viewport gamePort;
     private HUD hud;
@@ -42,6 +43,7 @@ public class PlayerScreen implements Screen {
 
 
     public PlayerScreen(Game2D game){
+        atlas= new TextureAtlas("C:\\Users\\Acer\\StudioProjects\\hackunitedproject\\assets\\characterentities.pack");
         this.game = game;
         camera = new OrthographicCamera();
         gamePort = new FitViewport(Game2D.WIDTH/Game2D.PPM, Game2D.HEIGHT/Game2D.PPM, camera);
@@ -54,7 +56,11 @@ public class PlayerScreen implements Screen {
         world = new World(new Vector2(0,-15f), true);
         br = new Box2DDebugRenderer();
         new WorldCreator(world,map);
-        player= new Hero(world);
+        player= new Hero(world, this);
+    }
+
+    public TextureAtlas getAtlas(){
+        return atlas;
     }
     @Override
     public void show() {
@@ -66,16 +72,17 @@ public class PlayerScreen implements Screen {
             player.body.applyLinearImpulse(new Vector2(0,9f), player.body.getWorldCenter(), true);
         }
         if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.body.getLinearVelocity().x<=3){
-            player.body.applyLinearImpulse(new Vector2(0.5f,0), player.body.getWorldCenter(),true);
+            player.body.applyLinearImpulse(new Vector2(2f,0), player.body.getWorldCenter(),true);
         }
         if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.body.getLinearVelocity().x>=-3){
-            player.body.applyLinearImpulse(new Vector2(-0.5f,0), player.body.getWorldCenter(),true);
+            player.body.applyLinearImpulse(new Vector2(-2f,0), player.body.getWorldCenter(),true);
         }
 
     }
     public void update(float deltatime){
         controlInput(deltatime);
         world.step(1/60f, 6, 2);
+        player.update(deltatime);
 
         camera.position.x = player.body.getPosition().x;
         camera.update();
@@ -90,6 +97,10 @@ public class PlayerScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         orthogonalTiledMapRenderer.render();
         br.render(world, camera.combined);
+        game.batch.setProjectionMatrix(camera.combined);
+        game.batch.begin();
+        player.draw(game.batch);
+        game.batch.end();
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
     }

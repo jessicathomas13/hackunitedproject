@@ -1,0 +1,24 @@
+
+characterentities.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+mainhero
+  rotate: false
+  xy: 1, 1
+  size: 923, 615
+  orig: 923, 615
+  offset: 0, 0
+  index: -1
+
+characterentities2.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+monster
+  rotate: false
+  xy: 1, 1
+  size: 960, 576
+  orig: 960, 576
+  offset: 0, 0
+  index: -1
