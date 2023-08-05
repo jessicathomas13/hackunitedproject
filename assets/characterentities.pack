@@ -10,11 +10,17 @@ mainhero
   orig: 768, 48
   offset: 0, 0
   index: -1
-monster
+deadmonster
   rotate: false
   xy: 1, 51
+  size: 960, 184
+  orig: 960, 184
+  offset: 0, 0
+  index: -1
+monster
+  rotate: false
+  xy: 1, 237
   size: 960, 204
   orig: 960, 204
   offset: 0, 0
   index: -1
-
