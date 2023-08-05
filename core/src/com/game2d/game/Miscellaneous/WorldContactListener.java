@@ -38,7 +38,7 @@ public class WorldContactListener implements ContactListener {
                 }
                 break;
             case Game2D.MONSTERBIT | Game2D.TREEBIT:
-                Gdx.app.log("poop", "DEpoopAD");
+                Gdx.app.log("MONSTER", "TREE");
                 if (fixA.getFilterData().categoryBits == Game2D.MONSTERBIT){
                     ((Monster)fixA.getUserData()).revVelocity(true, false);
                 }
@@ -48,6 +48,12 @@ public class WorldContactListener implements ContactListener {
                 break;
             case Game2D.HEROBIT | Game2D.MONSTERBIT:
                 Gdx.app.log("HERO", "DEAD");
+                break;
+
+            case Game2D.MONSTERBIT | Game2D.MONSTERBIT:
+                ((Monster)fixA.getUserData()).revVelocity(true, false);
+                ((Monster)fixB.getUserData()).revVelocity(true, false);
+                break;
 
         }
 

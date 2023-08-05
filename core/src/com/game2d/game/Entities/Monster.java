@@ -19,6 +19,8 @@ public abstract class Monster extends Sprite {
         defineMonster();
     }
     public abstract void hitHead();
+
+    public abstract void update(float deltaTime);
     public void revVelocity(boolean x, boolean y){
         if (x){
             velocity.x=-velocity.x;
