@@ -15,11 +15,11 @@ import com.game2d.game.Game2D;
 public class HUD implements Disposable {
     public Stage stage;
     private Viewport viewport;
-    private Integer score;
+    private static Integer score;
 
-    Label scoreLabel;
-    Label levelLabel;
-    Label nameofgame;
+    private static Label scoreLabel;
+    private Label levelLabel;
+    private Label nameofgame;
 
     @SuppressWarnings("DefaultLocale")
     public HUD(SpriteBatch spriteBatch){
@@ -46,6 +46,11 @@ public class HUD implements Disposable {
         table.add(levelLabel).expandX();
 
         stage.addActor(table);
+    }
+
+    public static void addScore(int val){
+        score+=val;
+        scoreLabel.setText(String.format("%03d",score));
     }
 
     @Override

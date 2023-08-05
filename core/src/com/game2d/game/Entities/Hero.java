@@ -1,5 +1,7 @@
 package com.game2d.game.Entities;
 
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -20,10 +22,12 @@ public class Hero extends Sprite {
     public World world;
     private TextureRegion heroidle;
     public Body body;
-    private Animation characterRun;
-    private Animation characterJump;
+    private Animation<TextureRegion> characterRun;
+    private Animation<TextureRegion> characterJump;
     private float stateTimer;
     private boolean runRight;
+
+    private Music music;
     public Hero (World world, PlayerScreen screen){
 
         super(screen.getAtlas().findRegion("mainhero"));
@@ -32,6 +36,7 @@ public class Hero extends Sprite {
         previousState = State.STAND;
         stateTimer = 0;
         runRight = true;
+
 
         Array<TextureRegion> frames = new Array<TextureRegion>();
         for(int i = 5; i<11; i++){
@@ -62,10 +67,15 @@ public class Hero extends Sprite {
         TextureRegion region;
         switch(currentState){
             case JUMP:
-                region = (TextureRegion) characterJump.getKeyFrame(stateTimer);
+                music = Game2D.assetManager.get("Sounds/Jump.ogg", Music.class);
+                music.setVolume(0.5f);
+                music.setLooping(false);
+                music.play();
+
+                region = characterJump.getKeyFrame(stateTimer);
                 break;
             case RUN:
-                region = (TextureRegion) characterRun.getKeyFrame(stateTimer,true);
+                region =  characterRun.getKeyFrame(stateTimer,true);
                 break;
             case FALL:
             case STAND:

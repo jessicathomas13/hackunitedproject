@@ -3,6 +3,8 @@ package com.game2d.game.Displays;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -43,6 +45,8 @@ public class PlayerScreen implements Screen {
     private World world;
     private Hero player;
     private Box2DDebugRenderer br;
+    private Music music;
+
 
 
     public PlayerScreen(Game2D game){
@@ -61,6 +65,14 @@ public class PlayerScreen implements Screen {
         br = new Box2DDebugRenderer();
         new WorldCreator(world,map);
         player= new Hero(world, this);
+
+        //world.setContactListener(new WorldContactListener);
+
+        music = Game2D.assetManager.get("Sounds/Soundtrack.ogg", Music.class);
+        music.setVolume(0.1f);
+        music.setLooping(true);
+        music.play();
+
     }
 
     public TextureAtlas getAtlas(){
