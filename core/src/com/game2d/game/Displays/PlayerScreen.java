@@ -21,6 +21,9 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.ScalingViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.game2d.game.Entities.Hero;
 import com.game2d.game.Game2D;
@@ -47,6 +50,7 @@ public class PlayerScreen implements Screen {
         this.game = game;
         camera = new OrthographicCamera();
         gamePort = new FitViewport(Game2D.WIDTH/Game2D.PPM, Game2D.HEIGHT/Game2D.PPM, camera);
+        Gdx.graphics.setWindowedMode(1200, 900);
         hud = new HUD(game.batch);
         tmxMapLoader = new TmxMapLoader();
         map = tmxMapLoader.load("map.tmx");
