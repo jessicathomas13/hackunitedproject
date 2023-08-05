@@ -3,9 +3,11 @@ package com.game2d.game.Entities;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.Array;
 import com.game2d.game.Displays.PlayerScreen;
 import com.game2d.game.Game2D;
@@ -35,7 +37,7 @@ public class Dragon extends Monster {
     @Override
     protected void defineMonster() {
         BodyDef bodyDef = new BodyDef();
-        bodyDef.position.set(90/ Game2D.PPM,550/Game2D.PPM);
+        bodyDef.position.set(getX(), getY());
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         body = world.createBody(bodyDef);
         FixtureDef fixtureDef = new FixtureDef();
@@ -49,5 +51,16 @@ public class Dragon extends Monster {
         fixtureDef.shape=shape;
         body.createFixture(fixtureDef);
 
+        PolygonShape head = new PolygonShape();
+        Vector2[] vertices = new Vector2[4];
+        vertices[0] = new Vector2(-50,77).scl(1/Game2D.PPM);
+        vertices[1] = new Vector2(50,77).scl(1/Game2D.PPM);
+        vertices[2] = new Vector2(-30,60).scl(1/Game2D.PPM);
+        vertices[3] = new Vector2(30,60).scl(1/Game2D.PPM);
+        head.set(vertices);
+        fixtureDef.shape = head;
+        fixtureDef.restitution = 0.5f;
+        fixtureDef.filter.categoryBits = Game2D.MONSTERHEADBIT;
+        body.createFixture(fixtureDef).setUserData(this);
     }
 }
