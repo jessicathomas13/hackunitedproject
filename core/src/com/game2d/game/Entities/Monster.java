@@ -15,6 +15,7 @@ public abstract class Monster extends Sprite {
         setPosition(x,y);
         defineMonster();
     }
+    public abstract void hitHead();
 
     protected abstract void defineMonster();
 }

@@ -15,6 +15,8 @@ import com.game2d.game.Game2D;
 public class Dragon extends Monster {
     private Animation<TextureRegion> walking;;
     private float time;
+    private boolean destroy;
+    private boolean destroyed;
     private Array<TextureRegion> frames;
     public Dragon(PlayerScreen screen, float x, float y) {
         super(screen, x, y);
@@ -25,12 +27,29 @@ public class Dragon extends Monster {
         walking= new Animation<>(0.2f,frames);
         setBounds(getX(),getY(), 190/Game2D.PPM, 200/Game2D.PPM);
         time=0;
+        destroy=false;
+        destroyed=false;
     }
+
+    @Override
+    public void hitHead() {
+        destroy = true;
+    }
+
 
     public void update (float deltatime){
         time+= deltatime;
-        setPosition(body.getPosition().x-getWidth()/2, body.getPosition().y-getHeight()/2);
-        setRegion(walking.getKeyFrame(time, true));
+        if (destroy && !destroyed){
+            world.destroyBody(body);
+            destroyed=true;
+            System.out.println("dead");
+            setRegion(new TextureRegion(screen.getAtlas().findRegion("deadmonster"), 1, 0, 184, 184));
+            time=0;
+        }
+        else if(!destroyed){
+            setPosition(body.getPosition().x-getWidth()/2, body.getPosition().y-getHeight()/2);
+            setRegion(walking.getKeyFrame(time, true));
+        }
     }
 
 
