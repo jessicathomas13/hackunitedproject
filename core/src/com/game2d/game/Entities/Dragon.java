@@ -46,7 +46,7 @@ public class Dragon extends Monster {
             world.destroyBody(body);
             destroyed=true;
             HUD.addScore(50);
-            setRegion(new TextureRegion(screen.getAtlas().findRegion("deadmonster"), 220, 0, 184, 184));
+            setRegion(new TextureRegion(screen.getAtlas().findRegion("deadmonster"), 204, 0, 190, 184));
             time=0;
         }
         else if(!destroyed){

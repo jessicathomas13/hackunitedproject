@@ -18,8 +18,8 @@ public class Game2D extends Game {
 	public static final short FLOORBIT= 1;
 	public static final short HEROBIT= 2;
 
-	public static final short TREEBIT= 16;
-	public static final short MONSTERBIT= 32;
+	public static final short TREEBIT= 32;
+	public static final short MONSTERBIT= 64;
 	public static final short MONSTERHEADBIT = 128;
 
 	public SpriteBatch batch;

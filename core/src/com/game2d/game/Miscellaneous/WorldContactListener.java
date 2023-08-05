@@ -1,5 +1,6 @@
 package com.game2d.game.Miscellaneous;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
@@ -36,7 +37,8 @@ public class WorldContactListener implements ContactListener {
                     ((Monster)fixB.getUserData()).hitHead();
                 }
                 break;
-            case Game2D.MONSTERBIT  | Game2D.TREEBIT:
+            case Game2D.MONSTERBIT | Game2D.TREEBIT:
+                Gdx.app.log("poop", "DEpoopAD");
                 if (fixA.getFilterData().categoryBits == Game2D.MONSTERBIT){
                     ((Monster)fixA.getUserData()).revVelocity(true, false);
                 }
@@ -44,6 +46,8 @@ public class WorldContactListener implements ContactListener {
                     ((Monster)fixB.getUserData()).revVelocity(true, false);
                 }
                 break;
+            case Game2D.HEROBIT | Game2D.MONSTERBIT:
+                Gdx.app.log("HERO", "DEAD");
 
         }
 

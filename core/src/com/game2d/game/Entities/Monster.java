@@ -21,7 +21,7 @@ public abstract class Monster extends Sprite {
     public abstract void hitHead();
     public void revVelocity(boolean x, boolean y){
         if (x){
-            velocity.x= -velocity.x;
+            velocity.x=-velocity.x;
         }
         if (y){
             velocity.y=-velocity.y;
