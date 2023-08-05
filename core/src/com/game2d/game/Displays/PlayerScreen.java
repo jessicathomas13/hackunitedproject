@@ -62,7 +62,7 @@ public class PlayerScreen implements Screen {
     }
 
     public void controlInput(float deltatime){
-        if(Gdx.input.isKeyJustPressed(Input.Keys.UP)){
+        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
             player.body.applyLinearImpulse(new Vector2(0,9f), player.body.getWorldCenter(), true);
         }
         if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.body.getLinearVelocity().x<=3){
