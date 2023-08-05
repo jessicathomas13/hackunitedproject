@@ -26,7 +26,7 @@ public class Dragon extends Monster {
         super(screen, x, y);
         frames = new Array<TextureRegion>();
         for (int k=0; k<5; k++){
-            frames.add(new TextureRegion(screen.getAtlas().findRegion("monster"), k*190, 0, 189, 200));
+            frames.add(new TextureRegion(screen.getAtlas().findRegion("mainmonster"), k*190, 0, 189, 200));
         }
         walking= new Animation<>(0.2f,frames);
         setBounds(getX(),getY(), 190/Game2D.PPM, 200/Game2D.PPM);

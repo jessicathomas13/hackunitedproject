@@ -3,34 +3,31 @@ characterentities.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-deadhero
-  rotate: false
-  xy: 1, 1
-  size: 288, 48
-  orig: 288, 48
-  offset: 0, 0
-  index: -1
-mainhero
-  rotate: false
-  xy: 1, 51
-  size: 768, 48
-  orig: 768, 48
-  offset: 0, 0
-  index: -1
-deadmonster
-  rotate: false
-  xy: 1, 101
-  size: 960, 184
-  orig: 960, 184
-  offset: 0, 0
-  index: -1
 mainmonster
   rotate: false
-  xy: 1, 287
+  xy: 1, 237
   size: 960, 204
   orig: 960, 204
   offset: 0, 0
   index: -1
-
-
-
+deadmonster
+  rotate: false
+  xy: 1, 51
+  size: 960, 184
+  orig: 960, 184
+  offset: 0, 0
+  index: -1
+mainhero
+  rotate: false
+  xy: 1, 1
+  size: 768, 48
+  orig: 768, 48
+  offset: 0, 0
+  index: -1
+deadhero
+  rotate: false
+  xy: 963, 393
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
