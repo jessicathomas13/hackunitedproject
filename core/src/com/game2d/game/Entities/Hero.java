@@ -146,7 +146,7 @@ public class Hero extends Sprite {
                 Game2D.MONSTERHEADBIT;                ;
 
         fixtureDef.filter.categoryBits= Game2D.HEROBIT;
-        body.createFixture(fixtureDef);
+        body.createFixture(fixtureDef).setUserData(this);
 
     }
 }
