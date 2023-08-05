@@ -118,7 +118,8 @@ public class Hero extends Sprite {
         fixtureDef.shape=shape;
         fixtureDef.filter.maskBits= Game2D.FLOORBIT|
                 Game2D.MONSTERBIT|
-                Game2D.TREEBIT;
+                Game2D.TREEBIT|
+                Game2D.MONSTERHEADBIT;                ;
 
         fixtureDef.filter.categoryBits= Game2D.HEROBIT;
         body.createFixture(fixtureDef);

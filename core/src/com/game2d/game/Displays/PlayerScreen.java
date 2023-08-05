@@ -122,7 +122,7 @@ public class PlayerScreen implements Screen {
         br.render(world, camera.combined);
         game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
-        dragon.draw(game.batch);
+        //dragon.draw(game.batch);
         player.draw(game.batch);
         game.batch.end();
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
