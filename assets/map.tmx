@@ -193,8 +193,8 @@
   <object id="87" x="9860" y="3740" width="170" height="85"/>
  </objectgroup>
  <objectgroup id="8" name="Trees">
-  <object id="61" x="6044" y="3574.67" width="72" height="78.6667"/>
-  <object id="63" x="6636" y="3573.33" width="74.6667" height="77.3333"/>
+  <object id="61" x="6035.25" y="3484.67" width="84.832" height="255.667"/>
+  <object id="63" x="6629.96" y="3485.02" width="85.01" height="255.311"/>
   <object id="82" x="12517.3" y="3741.33" width="49.3333" height="82.6667"/>
   <object id="83" x="13957.3" y="3742.67" width="57.3333" height="81.3333"/>
  </objectgroup>

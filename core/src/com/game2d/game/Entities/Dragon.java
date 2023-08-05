@@ -16,7 +16,8 @@ import com.game2d.game.Game2D;
 import com.game2d.game.Overlay.HUD;
 
 public class Dragon extends Monster {
-    private Animation<TextureRegion> walking;;
+    private Animation<TextureRegion> walking;
+    private boolean runRight;
     private float time;
     private boolean destroy;
     private boolean destroyed;
@@ -51,11 +52,11 @@ public class Dragon extends Monster {
         }
         else if(!destroyed){
             body.setLinearVelocity(velocity);
-
             setPosition(body.getPosition().x-getWidth()/2, body.getPosition().y-getHeight()/2);
             setRegion(walking.getKeyFrame(time, true));
         }
-    }
+        }
+
     public void draw(Batch batch){
         if (!destroyed||time<1){
             super.draw(batch);
@@ -71,24 +72,26 @@ public class Dragon extends Monster {
         body = world.createBody(bodyDef);
         FixtureDef fixtureDef = new FixtureDef();
         CircleShape shape = new CircleShape();
-        shape.setRadius(75/Game2D.PPM);
+        shape.setRadius(60/Game2D.PPM);
         fixtureDef.filter.categoryBits= Game2D.MONSTERBIT;
         fixtureDef.filter.maskBits=Game2D.FLOORBIT|
                 Game2D.TREEBIT|
                 Game2D.HEROBIT|
                 Game2D.MONSTERBIT;
         fixtureDef.shape=shape;
+        fixtureDef.friction=0;
         body.createFixture(fixtureDef).setUserData(this);
 
         PolygonShape head = new PolygonShape();
         Vector2[] vertices = new Vector2[4];
-        vertices[0] = new Vector2(-50,77).scl(1/Game2D.PPM);
-        vertices[1] = new Vector2(50,77).scl(1/Game2D.PPM);
-        vertices[2] = new Vector2(-30,60).scl(1/Game2D.PPM);
-        vertices[3] = new Vector2(30,60).scl(1/Game2D.PPM);
+        vertices[0] = new Vector2(-10,77).scl(1/Game2D.PPM);
+        vertices[1] = new Vector2(10,77).scl(1/Game2D.PPM);
+        vertices[2] = new Vector2(-5,60).scl(1/Game2D.PPM);
+        vertices[3] = new Vector2(5,60).scl(1/Game2D.PPM);
         head.set(vertices);
         fixtureDef.shape = head;
         fixtureDef.restitution = 0.5f;
+        fixtureDef.friction=0;
         fixtureDef.filter.categoryBits = Game2D.MONSTERHEADBIT;
         body.createFixture(fixtureDef).setUserData(this);
     }

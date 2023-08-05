@@ -77,7 +77,7 @@ public class PlayerScreen implements Screen {
         music.setVolume(0.1f);
         music.setLooping(true);
         music.play();
-        dragon = new Dragon(this, 6000/Game2D.PPM, 808/Game2D.PPM);
+        dragon = new Dragon(this, 6500/Game2D.PPM, 500/Game2D.PPM);
 
     }
 
