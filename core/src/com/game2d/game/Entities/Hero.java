@@ -6,9 +6,12 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.Filter;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
@@ -17,16 +20,18 @@ import com.game2d.game.Game2D;
 
 public class Hero extends Sprite {
 
-    public enum State {FALL,JUMP,STAND,RUN};
+    public enum State {FALL,JUMP,STAND,RUN,DEAD};
     public State currentState;
     public State previousState;
     public World world;
     private TextureRegion heroidle;
+    private TextureRegion characterDead;
     public Body body;
     private Animation<TextureRegion> characterRun;
     private Animation<TextureRegion> characterJump;
     private float stateTimer;
     private boolean runRight;
+    private boolean characterisdead;
 
     private Music music;
     public Hero (PlayerScreen screen){
@@ -49,6 +54,8 @@ public class Hero extends Sprite {
             frames.add(new TextureRegion(getTexture(),i*48,0,48,48));
         }
         characterJump = new Animation(0.1f,frames);
+        characterDead = new TextureRegion(screen.getAtlas().findRegion("deadhero"), 1, 1, 48, 48);
+
 
         defineHero();
         heroidle= new TextureRegion(getTexture(), 1, 1, 48, 48);
@@ -67,6 +74,9 @@ public class Hero extends Sprite {
         currentState = getState();
         TextureRegion region;
         switch(currentState){
+            case DEAD:
+                region = characterDead;
+                break;
             case JUMP:
                 music = Game2D.assetManager.get("Sounds/Jump.ogg", Music.class);
                 music.setVolume(0.5f);
@@ -97,7 +107,10 @@ public class Hero extends Sprite {
     }
 
     public State getState(){
-        if(body.getLinearVelocity().y>0 ||(body.getLinearVelocity().y<0 && previousState == State.JUMP)){
+        if(characterisdead){
+            return State.DEAD;
+        }
+        else if(body.getLinearVelocity().y>0 ||(body.getLinearVelocity().y<0 && previousState == State.JUMP)){
             return State.JUMP;
         } else if(body.getLinearVelocity().y<0){
             return State.FALL;
@@ -106,6 +119,17 @@ public class Hero extends Sprite {
         }else {
             return State.STAND;
         }
+    }
+
+    public void hit(){
+        Game2D.assetManager.get("Sounds/Soundtrack.ogg", Music.class).stop();
+        //Game2D.assetManager.get(
+        characterisdead = true;
+        Filter filter = new Filter();
+        filter.maskBits = Game2D.NOTHINGBIT;
+        for(Fixture fixture : body.getFixtureList()){
+            fixture.setFilterData(filter);
+        } body.applyLinearImpulse(new Vector2(0,4f), body.getWorldCenter(), true);
     }
     private void defineHero() {
         BodyDef bodyDef = new BodyDef();

@@ -21,6 +21,7 @@ public class Game2D extends Game {
 	public static final short TREEBIT= 256;
 	public static final short MONSTERBIT= 64;
 	public static final short MONSTERHEADBIT = 128;
+	public static final short NOTHINGBIT = 0;
 
 	public SpriteBatch batch;
 

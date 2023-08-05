@@ -29,6 +29,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.game2d.game.Entities.Dragon;
 import com.game2d.game.Entities.Hero;
+import com.game2d.game.Entities.Monster;
 import com.game2d.game.Game2D;
 import com.game2d.game.Miscellaneous.WorldContactListener;
 import com.game2d.game.Miscellaneous.WorldCreator;
@@ -45,9 +46,9 @@ public class PlayerScreen implements Screen {
     private TiledMap map;
     private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
     private World world;
-    private Dragon dragon;
     private Hero player;
     private Box2DDebugRenderer br;
+    private WorldCreator worldCreator;
     private Music music;
 
 
@@ -66,10 +67,10 @@ public class PlayerScreen implements Screen {
 
         world = new World(new Vector2(0,-20f), true);
         br = new Box2DDebugRenderer();
-        new WorldCreator(this);
+        worldCreator = new WorldCreator(this);
         player= new Hero(this);
 
-        new WorldCreator(this);
+
 
         world.setContactListener(new WorldContactListener());
 
@@ -77,7 +78,7 @@ public class PlayerScreen implements Screen {
         music.setVolume(0.1f);
         music.setLooping(true);
         music.play();
-        dragon = new Dragon(this, 6500/Game2D.PPM, 500/Game2D.PPM);
+
 
     }
 
@@ -90,22 +91,30 @@ public class PlayerScreen implements Screen {
     }
 
     public void controlInput(float deltatime){
-        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
-            player.body.applyLinearImpulse(new Vector2(0,9f), player.body.getWorldCenter(), true);
+        if(player.currentState != Hero.State.DEAD){
+            if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
+                player.body.applyLinearImpulse(new Vector2(0,9f), player.body.getWorldCenter(), true);
+            }
+            if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.body.getLinearVelocity().x<=3){
+                player.body.applyLinearImpulse(new Vector2(2f,0), player.body.getWorldCenter(),true);
+            }
+            if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.body.getLinearVelocity().x>=-3){
+                player.body.applyLinearImpulse(new Vector2(-2f,0), player.body.getWorldCenter(),true);
+            }
         }
-        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.body.getLinearVelocity().x<=3){
-            player.body.applyLinearImpulse(new Vector2(2f,0), player.body.getWorldCenter(),true);
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.body.getLinearVelocity().x>=-3){
-            player.body.applyLinearImpulse(new Vector2(-2f,0), player.body.getWorldCenter(),true);
-        }
+
 
     }
     public void update(float deltatime){
         controlInput(deltatime);
         world.step(1/60f, 6, 2);
         player.update(deltatime);
-        dragon.update(deltatime);
+        for(Monster monster : worldCreator.getDragons()){
+            monster.update(deltatime);
+        }
+        if(player.currentState != Hero.State.DEAD){
+            camera.position.x = player.body.getPosition().x;
+        }
 
         camera.position.x = player.body.getPosition().x;
         camera.position.y = player.body.getPosition().y;
@@ -123,8 +132,10 @@ public class PlayerScreen implements Screen {
         br.render(world, camera.combined);
         game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
-        dragon.draw(game.batch);
         player.draw(game.batch);
+        for(Monster monster : worldCreator.getDragons()){
+            monster.draw(game.batch);
+        }
         game.batch.end();
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();

@@ -1,5 +1,6 @@
 package com.game2d.game.Miscellaneous;
 
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -10,9 +11,14 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.game2d.game.Displays.PlayerScreen;
+import com.game2d.game.Entities.Dragon;
 import com.game2d.game.Game2D;
 
+
+
 public class WorldCreator {
+
+    private Array<Dragon> dragons;
     public WorldCreator(PlayerScreen screen){
         World world = screen.getWorld();
         TiledMap map = screen.getMap();
@@ -42,5 +48,16 @@ public class WorldCreator {
             fixtureDef.filter.categoryBits = Game2D.TREEBIT;
             body.createFixture(fixtureDef);
         }
+
+        dragons = new Array<Dragon>();
+        for(MapObject mapObject : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)){
+            Rectangle rectangle = ((RectangleMapObject) mapObject).getRectangle();
+            dragons.add(new Dragon(screen, rectangle.getX()/Game2D.PPM, rectangle.getY()/Game2D.PPM));
+        }
+
+    }
+
+    public Array<Dragon> getDragons() {
+        return dragons;
     }
 }

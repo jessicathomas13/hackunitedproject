@@ -16,10 +16,12 @@ public abstract class Monster extends Sprite {
         this.world= screen.getWorld();
         this.screen= screen;
         setPosition(x,y);
-        velocity = new Vector2(1, 0);
+        velocity = new Vector2(2, 0);
         defineMonster();
     }
     public abstract void hitHead();
+
+    public abstract void update(float deltaTime);
     public void revVelocity(boolean x, boolean y){
         if (x){
                 velocity.x*=-1;
