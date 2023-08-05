@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.game2d.game.Entities.Dragon;
+import com.game2d.game.Entities.Hero;
 import com.game2d.game.Entities.InteractiveObject;
 import com.game2d.game.Entities.Monster;
 import com.game2d.game.Game2D;
@@ -47,7 +48,12 @@ public class WorldContactListener implements ContactListener {
                 }
                 break;
             case Game2D.HEROBIT | Game2D.MONSTERBIT:
-                Gdx.app.log("HERO", "DEAD");
+                if (fixA.getFilterData().categoryBits == Game2D.HEROBIT){
+                    ((Hero)fixA.getUserData()).hit();
+                }
+                else {
+                    ((Hero)fixB.getUserData()).hit();
+                }
                 break;
 
             case Game2D.MONSTERBIT | Game2D.MONSTERBIT:

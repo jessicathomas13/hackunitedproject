@@ -91,15 +91,18 @@ public class PlayerScreen implements Screen {
     }
 
     public void controlInput(float deltatime){
-        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
-            player.body.applyLinearImpulse(new Vector2(0,9f), player.body.getWorldCenter(), true);
+        if(player.currentState != Hero.State.DEAD){
+            if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
+                player.body.applyLinearImpulse(new Vector2(0,9f), player.body.getWorldCenter(), true);
+            }
+            if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.body.getLinearVelocity().x<=3){
+                player.body.applyLinearImpulse(new Vector2(2f,0), player.body.getWorldCenter(),true);
+            }
+            if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.body.getLinearVelocity().x>=-3){
+                player.body.applyLinearImpulse(new Vector2(-2f,0), player.body.getWorldCenter(),true);
+            }
         }
-        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.body.getLinearVelocity().x<=3){
-            player.body.applyLinearImpulse(new Vector2(2f,0), player.body.getWorldCenter(),true);
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.body.getLinearVelocity().x>=-3){
-            player.body.applyLinearImpulse(new Vector2(-2f,0), player.body.getWorldCenter(),true);
-        }
+
 
     }
     public void update(float deltatime){
@@ -108,6 +111,9 @@ public class PlayerScreen implements Screen {
         player.update(deltatime);
         for(Monster monster : worldCreator.getDragons()){
             monster.update(deltatime);
+        }
+        if(player.currentState != Hero.State.DEAD){
+            camera.position.x = player.body.getPosition().x;
         }
 
         camera.position.x = player.body.getPosition().x;

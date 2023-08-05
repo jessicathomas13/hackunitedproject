@@ -15,7 +15,7 @@ public abstract class Monster extends Sprite {
         this.world= screen.getWorld();
         this.screen= screen;
         setPosition(x,y);
-        velocity = new Vector2(1, 0);
+        velocity = new Vector2(2, 0);
         defineMonster();
     }
     public abstract void hitHead();
