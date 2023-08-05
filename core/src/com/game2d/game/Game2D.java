@@ -34,6 +34,7 @@ public class Game2D extends Game {
 		assetManager = new AssetManager();
 		assetManager.load("Sounds/Soundtrack.ogg", Music.class);
 		assetManager.load("Sounds/Jump.ogg", Music.class);
+		assetManager.load("Sounds/Score.wav", Music.class);
 		assetManager.finishLoading();
 
 		setScreen(new PlayerScreen(this));

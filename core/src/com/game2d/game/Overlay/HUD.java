@@ -1,5 +1,6 @@
 package com.game2d.game.Overlay;
 
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -20,8 +21,9 @@ public class HUD implements Disposable {
     private static Label scoreLabel;
     private Label levelLabel;
     private Label nameofgame;
+    private static Music music;
 
-    @SuppressWarnings("DefaultLocale")
+
     public HUD(SpriteBatch spriteBatch){
         score = 0;
 
@@ -49,6 +51,8 @@ public class HUD implements Disposable {
     }
 
     public static void addScore(int val){
+        music = Game2D.assetManager.get("Sounds/Score.wav", Music.class);
+        music.play();
         score+=val;
         scoreLabel.setText(String.format("%03d",score));
     }
