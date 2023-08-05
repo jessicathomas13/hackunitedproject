@@ -53,7 +53,7 @@ public class PlayerScreen implements Screen {
         orthogonalTiledMapRenderer = new OrthogonalTiledMapRenderer(map,1/Game2D.PPM );
         camera.position.set(gamePort.getWorldWidth()/2, gamePort.getWorldHeight()/2, 0);
 
-        world = new World(new Vector2(0,-15f), true);
+        world = new World(new Vector2(0,-20f), true);
         br = new Box2DDebugRenderer();
         new WorldCreator(world,map);
         player= new Hero(world, this);
