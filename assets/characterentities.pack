@@ -6,14 +6,15 @@ repeat: none
 mainhero
   rotate: false
   xy: 1, 1
-  size: 513, 105
-  orig: 513, 105
+  size: 768, 48
+  orig: 768, 48
   offset: 0, 0
   index: -1
 monster
   rotate: false
-  xy: 1, 108
+  xy: 1, 51
   size: 960, 204
   orig: 960, 204
   offset: 0, 0
   index: -1
+
