@@ -91,7 +91,7 @@ public class Hero extends Sprite {
                 break;
             case JUMP:
                 music = Game2D.assetManager.get("Sounds/Jump.ogg", Music.class);
-                music.setVolume(0.5f);
+                music.setVolume(0.3f);
                 music.setLooping(false);
                 music.play();
 
