@@ -3,6 +3,7 @@ package com.game2d.game.Displays;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -19,6 +20,7 @@ public class GameOverScreen implements Screen {
     private Stage stage;
     private Game game;
     private BitmapFont fontt;
+    private static Music music;
 
     public GameOverScreen(Game game){
         this.game=game;
@@ -36,6 +38,9 @@ public class GameOverScreen implements Screen {
         table.row();
         table.add(playagain).expandX().padTop(10f);
         stage.addActor(table);
+        music = Game2D.assetManager.get("Sounds/Dead Soundtrack.ogg", Music.class);
+        music.setVolume(0.1f);
+        music.play();
 
      }
     @Override
@@ -46,6 +51,7 @@ public class GameOverScreen implements Screen {
     @Override
     public void render(float delta) {
         if (Gdx.input.justTouched()){
+            Game2D.assetManager.get("Sounds/Dead Soundtrack.ogg", Music.class).stop();
             game.setScreen(new PlayerScreen((Game2D) game));
             dispose();
         }

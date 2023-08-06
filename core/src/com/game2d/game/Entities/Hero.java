@@ -130,7 +130,6 @@ public class Hero extends Sprite {
 
     public void hit(){
         Game2D.assetManager.get("Sounds/Soundtrack.ogg", Music.class).stop();
-        //Game2D.assetManager.get(
         characterisdead = true;
         Filter filter = new Filter();
         filter.maskBits = Game2D.NOTHINGBIT;
