@@ -70,6 +70,13 @@ public class Hero extends Sprite {
         setRegion(getFrame(deltatime));
     }
 
+    public boolean dead(){
+        return characterisdead;
+    }
+    public float getStateTimer(){
+        return stateTimer;
+    }
+
     public TextureRegion getFrame(float deltatime){
         currentState = getState();
         TextureRegion region;

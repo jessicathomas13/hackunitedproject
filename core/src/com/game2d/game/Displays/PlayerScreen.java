@@ -58,7 +58,7 @@ public class PlayerScreen implements Screen {
         this.game = game;
         camera = new OrthographicCamera();
         gamePort = new FitViewport(Game2D.WIDTH/Game2D.PPM, Game2D.HEIGHT/Game2D.PPM, camera);
-        Gdx.graphics.setWindowedMode(1200, 900);
+        Gdx.graphics.setWindowedMode(1800, 950);
         hud = new HUD(game.batch);
         tmxMapLoader = new TmxMapLoader();
         map = tmxMapLoader.load("map.tmx");
@@ -139,9 +139,19 @@ public class PlayerScreen implements Screen {
         game.batch.end();
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
+        if (gameover()){
+            game.setScreen(new GameOverScreen(game));
+            dispose();
+        }
     }
     public TiledMap getMap(){
         return map;
+    }
+    public boolean gameover(){
+        if(player.currentState==Hero.State.DEAD && player.getStateTimer()>3){
+            return true;
+        }
+        return false;
     }
 
     public World getWorld() {
