@@ -69,9 +69,6 @@ public class PlayerScreen implements Screen {
         //br = new Box2DDebugRenderer();
         worldCreator = new WorldCreator(this);
         player= new Hero(this);
-        map.getLayers().get(3).setOpacity(0);
-        map.getLayers().get(4).setOpacity(0);
-        map.getLayers().get(5).setOpacity(0);
 
 
         world.setContactListener(new WorldContactListener());
@@ -139,9 +136,6 @@ public class PlayerScreen implements Screen {
         for(Monster monster : worldCreator.getDragons()){
             monster.draw(game.batch);
         }
-        map.getLayers().get(3).setOpacity(0);
-        map.getLayers().get(4).setOpacity(0);
-        map.getLayers().get(5).setOpacity(0);
         game.batch.end();
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
@@ -190,7 +184,7 @@ public class PlayerScreen implements Screen {
         world.dispose();
         orthogonalTiledMapRenderer.dispose();
         map.dispose();
-        br.dispose();
+        //br.dispose();
         hud.dispose();
 
     }
