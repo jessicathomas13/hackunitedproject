@@ -10,6 +10,7 @@ public class DesktopLauncher {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setForegroundFPS(60);
 		config.setTitle("Game2D");
+		config.setWindowIcon("C:\\Users\\Acer\\StudioProjects\\hackunitedproject\\desktop\\src\\com\\game2d\\game\\SteamMan.png");
 		new Lwjgl3Application(new Game2D(), config);
 	}
 }

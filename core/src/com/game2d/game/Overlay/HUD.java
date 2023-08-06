@@ -57,6 +57,7 @@ public class HUD implements Disposable {
         scoreLabel.setText(String.format("%03d",score));
     }
 
+
     @Override
     public void dispose() {
         stage.dispose();
