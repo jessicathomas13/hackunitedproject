@@ -68,6 +68,11 @@ public class Hero extends Sprite {
     public void update(float deltatime){
         setPosition(body.getPosition().x-getWidth()/2, body.getPosition().y-getHeight()/2);
         setRegion(getFrame(deltatime));
+        if (body.getPosition().y<0 && !characterisdead){
+            body.setLinearVelocity(0,0);
+            body.getPosition().y=0;
+            hit();
+        }
     }
 
     public boolean dead(){
