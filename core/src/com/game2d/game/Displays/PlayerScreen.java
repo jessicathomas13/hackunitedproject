@@ -66,10 +66,12 @@ public class PlayerScreen implements Screen {
         camera.position.set(gamePort.getWorldWidth()/2, gamePort.getWorldHeight()/2, 0);
 
         world = new World(new Vector2(0,-20f), true);
-        br = new Box2DDebugRenderer();
+        //br = new Box2DDebugRenderer();
         worldCreator = new WorldCreator(this);
         player= new Hero(this);
-
+        map.getLayers().get(3).setOpacity(0);
+        map.getLayers().get(4).setOpacity(0);
+        map.getLayers().get(5).setOpacity(0);
 
 
         world.setContactListener(new WorldContactListener());
@@ -128,14 +130,18 @@ public class PlayerScreen implements Screen {
         update(delta);
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        Gdx.graphics.getGL20().glEnable(GL20.GL_BLEND);
         orthogonalTiledMapRenderer.render();
-        br.render(world, camera.combined);
+        //br.render(world, camera.combined);
         game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
         player.draw(game.batch);
         for(Monster monster : worldCreator.getDragons()){
             monster.draw(game.batch);
         }
+        map.getLayers().get(3).setOpacity(0);
+        map.getLayers().get(4).setOpacity(0);
+        map.getLayers().get(5).setOpacity(0);
         game.batch.end();
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
