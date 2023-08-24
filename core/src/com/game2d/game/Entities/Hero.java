@@ -144,12 +144,12 @@ public class Hero extends Sprite {
     }
     private void defineHero() {
         BodyDef bodyDef = new BodyDef();
-        bodyDef.position.set(90/Game2D.PPM,550/Game2D.PPM);
+        bodyDef.position.set(100/Game2D.PPM,550/Game2D.PPM);
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         body = world.createBody(bodyDef);
         FixtureDef fixtureDef = new FixtureDef();
         CircleShape shape = new CircleShape();
-        shape.setRadius(45/Game2D.PPM);
+        shape.setRadius(50/Game2D.PPM);
         fixtureDef.shape=shape;
         fixtureDef.filter.maskBits= Game2D.FLOORBIT|
                 Game2D.MONSTERBIT|

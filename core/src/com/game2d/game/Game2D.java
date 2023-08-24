@@ -7,6 +7,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.game2d.game.Displays.MainMenuScreen;
 import com.game2d.game.Displays.PlayerScreen;
 
 public class Game2D extends Game {
@@ -39,7 +40,7 @@ public class Game2D extends Game {
 		assetManager.load("Sounds/Dead Soundtrack.ogg", Music.class);
 		assetManager.finishLoading();
 
-		setScreen(new PlayerScreen(this));
+		setScreen(new MainMenuScreen(this));
 	}
 
 	@Override
