@@ -3,7 +3,7 @@
 ## Inspiration: 
 We were inspired by our love for video games.
 ## What it does: 
-It is a simple 2D video game where you kill monster and earn points.
+It is a simple 2D video game where you kill monsters and earn points.
 ## How we built it: 
 We built it using libgdx on Android Studio.
 ## Challenges we ran into: 
