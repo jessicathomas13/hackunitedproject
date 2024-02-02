@@ -4,8 +4,14 @@
 We were inspired by our love for video games.
 ## What it does: 
 It is a simple 2D video game where you kill monsters and earn points.
+
+![](https://github.com/jessicathomas13/hackunitedproject/blob/master/assets/Screenshot%202024-02-01%20200618.png)
+
+![](https://github.com/jessicathomas13/hackunitedproject/blob/master/assets/Screenshot%202024-02-01%20200820.png)
 ## How we built it: 
 We built it using libgdx on Android Studio.
+## How to run it:
+Download the package and simply run the .jar file.
 ## Challenges we ran into: 
 There was a lot of trial and error involved in perfecting the movement and the animations and we ran into a lot of complications and errors which took hours to fix.
 ## Accomplishments that we're proud of: 
